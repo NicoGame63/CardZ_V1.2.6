@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>CardZ — 废土卡牌地牢</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="assets/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ========== 登录 / 授权门禁（新增，游戏正式内容全部在授权通过后才会加载）========== -->
+    <section id="screen-auth" class="screen overlay active">
+      <div class="menu-bg"></div>
+      <div class="auth-panel">
+        <h1 class="game-title" style="font-size:44px;">CardZ</h1>
+        <p class="game-subtitle">请登录已开通的账号</p>
+
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-mode="login">登录</button>
+          <button class="auth-tab" data-mode="signup">注册新账号</button>
+        </div>
+
+        <form id="auth-form" autocomplete="on">
+          <label>邮箱
+            <input type="email" id="auth-email" required autocomplete="username" />
+          </label>
+          <label>密码
+            <input type="password" id="auth-password" required minlength="6" autocomplete="current-password" />
+          </label>
+          <button type="submit" class="btn btn-primary" id="auth-submit">登录</button>
+        </form>
+
+        <div id="auth-status" class="auth-status"></div>
+        <p class="auth-hint">注册成功后请联系客服并提供付款凭证<br>管理员确认后会为该邮箱账号开通游玩权限<br>客服微信：Nicolas6392</br></p>
+      </div>
+    </section>
+
+    <section id="screen-menu" class="screen active">
+      <div class="menu-bg"></div>
+      <div class="menu-content">
+        <h1 class="game-title">CardZ</h1>
+        <p class="game-subtitle">Wasteland Card Dungeon By Nicolas</p>
+        <div class="menu-buttons">
+          <button class="btn btn-primary" id="btn-play">开始游戏</button>
+          <button class="btn" id="btn-continue">继续冒险</button>
+          <button class="btn" id="btn-heroes">英雄选择</button>
+          <button class="btn" id="btn-codex">图鉴 / 解锁</button>
+          <button class="btn" id="btn-help">游戏说明</button>
+        </div>
+        <div class="menu-footer">
+          <span id="menu-highscore">最高分: 0</span>
+          <span id="menu-account" class="menu-account"></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-setup" class="screen">
+      <div class="panel">
+        <h2>准备出发</h2>
+        <div class="setup-block"><h3>选择难度</h3><div class="chip-row" id="difficulty-row"></div></div>
+        <div class="setup-block"><h3>选择英雄</h3><div class="hero-row" id="hero-select-row"></div></div>
+        <div class="panel-buttons">
+          <button class="btn" id="btn-setup-back">返回</button>
+          <button class="btn btn-primary" id="btn-setup-start">进入废土</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-game" class="screen">
+      <header id="hud">
+        <div class="hud-left">
+          <div class="hud-stat hud-hp"><span class="hud-icon">❤</span>
+            <div class="hud-bar"><div class="hud-bar-fill" id="hp-fill"></div><span id="hp-text">0/0</span></div></div>
+          <div class="hud-stat hud-weapon" id="weapon-stat" title="战斗力"><span class="hud-icon">⚔</span><span id="weapon-text">0</span></div>
+          <div class="hud-stat hud-shield"><span class="hud-icon">🛡</span><span id="shield-text">0</span></div>
+        </div>
+        <div class="hud-right">
+          <div class="hud-stat hud-gold"><span class="hud-icon">◉</span><span id="gold-text">0</span></div>
+          <div class="hud-stat hud-turn"><span class="hud-icon">↻</span><span id="turn-text">0</span></div>
+          <div class="hud-stat hud-diff"><span id="diff-text">普通</span></div>
+          <button class="icon-btn" id="btn-ability" title="主动技能">✦</button>
+          <button class="icon-btn" id="btn-pause" title="菜单">☰</button>
+        </div>
+      </header>
+      <div id="status-bar" class="status-bar"></div>
+      <div id="board-wrap"><canvas id="board"></canvas></div>
+      <footer id="game-footer"><div id="log-line">在废墟中求生……</div></footer>
+    </section>
+
+    <section id="screen-pause" class="screen overlay">
+      <div class="panel small">
+        <h2>暂停</h2>
+        <div class="panel-buttons vertical">
+          <button class="btn btn-primary" id="btn-resume">继续</button>
+          <button class="btn" id="btn-restart">重新开始本局</button>
+          <button class="btn" id="btn-save-exit">保存并返回主菜单</button>
+          <button class="btn btn-danger" id="btn-quit">放弃本局</button>
+          <button class="btn" id="btn-logout">退出登录</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-over" class="screen overlay">
+      <div class="panel">
+        <h2 id="over-title">你噶了</h2>
+        <div class="result-grid">
+          <div class="result-item"><span>本局得分</span><b id="res-score">0</b></div>
+          <div class="result-item"><span>历史最高</span><b id="res-best">0</b></div>
+          <div class="result-item"><span>击杀数</span><b id="res-kills">0</b></div>
+          <div class="result-item"><span>存活回合</span><b id="res-turns">0</b></div>
+        </div>
+        <div id="unlock-notice"></div>
+        <div class="panel-buttons">
+          <button class="btn btn-primary" id="btn-again">再来一局</button>
+          <button class="btn" id="btn-over-menu">返回主菜单</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-codex" class="screen">
+      <div class="panel wide">
+        <h2>图鉴 / 解锁</h2>
+        <div class="tabs">
+          <button class="tab active" data-tab="cards">卡牌</button>
+          <button class="tab" data-tab="heroes">英雄</button>
+          <button class="tab" data-tab="unlocks">进度</button>
+        </div>
+        <div class="codex-body" id="codex-body"></div>
+        <div class="panel-buttons"><button class="btn" id="btn-codex-back">返回</button></div>
+      </div>
+    </section>
+
+    <section id="screen-help" class="screen overlay">
+      <div class="panel">
+        <h2 id="help-title">如何游玩</h2>
+        <div id="help-body" class="help-body"></div>
+        <div class="panel-buttons">
+          <button class="btn" id="btn-help-prev">上一步</button>
+          <button class="btn btn-primary" id="btn-help-next">下一步</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========== Supabase：登录 + 授权校验 + 动态加载游戏引擎 ==========
+       以下脚本是"公开"部分，会随 GitHub Pages 一起发布：
+       supabase-config.js 只包含 URL 和匿名(anon) key，这两个值本来就是公开可用的，
+       真正决定"能不能玩"的是 Supabase 数据库里的 is_authorized 字段 + RLS 权限策略，
+       而不是这几个 JS 文件本身。
+       游戏真正的玩法代码（cards.js / game.js / ui.js 等）不会出现在 GitHub 仓库里，
+       只有登录且授权通过后，才会从 Supabase 私有 Storage 生成临时签名链接下载执行。
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/loader.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
