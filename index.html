@@ -17,6 +17,17 @@
     .merchant-offer .btn{align-self:end;margin-top:12px;margin-bottom:10px}
     .merchant-offer-info p{line-height:1.55;margin:.45em 0 .8em}.merchant-price{font-weight:700;margin-top:8px}.mechanic-service{grid-template-columns:1fr minmax(125px,auto)}
     @media(max-width:680px){.merchant-offer{grid-template-columns:auto 1fr}.merchant-offer .btn{grid-column:1/-1;width:100%;margin-top:14px}.mechanic-service{grid-template-columns:1fr}}
+
+    /* 63号避难所确认弹窗 */
+    .shelter-confirm-text{line-height:1.6;margin:14px 0 20px}
+
+    /* 武器耐久过低时的 HUD 视觉警告 */
+    @keyframes durWarnPulse{0%{opacity:1}50%{opacity:.35}100%{opacity:1}}
+    .hud-weapon.low-durability{outline:1.5px solid rgba(224,60,60,.75);border-radius:8px;box-shadow:0 0 10px rgba(224,60,60,.55);animation:durWarnPulse 1.1s ease-in-out infinite}
+    .hud-weapon.low-durability .hud-icon,.hud-weapon.low-durability #weapon-text{color:#ff5a4a}
+    .status-item.low-durability{outline:1.5px solid rgba(224,60,60,.75);box-shadow:0 0 8px rgba(224,60,60,.5);animation:durWarnPulse 1.1s ease-in-out infinite}
+    .status-item.low-durability .si-icon{filter:drop-shadow(0 0 2px rgba(255,90,74,.8))}
+    .status-item.low-durability .si-val{color:#ff8a7a}
   </style>
 </head>
 <body>
@@ -127,6 +138,17 @@
         <div class="panel-buttons">
           <button class="btn btn-primary" id="btn-again">再来一局</button>
           <button class="btn" id="btn-over-menu">返回主菜单</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-shelter-confirm" class="screen overlay">
+      <div class="panel small">
+        <h2>63号避难所</h2>
+        <p class="shelter-confirm-text" id="shelter-confirm-text">支付 63 瓶盖即可清除全部负面状态并恢复至满生命。是否进入？</p>
+        <div class="panel-buttons vertical">
+          <button class="btn btn-primary" id="btn-shelter-yes">进入（-63瓶盖）</button>
+          <button class="btn" id="btn-shelter-no">不进入</button>
         </div>
       </div>
     </section>
