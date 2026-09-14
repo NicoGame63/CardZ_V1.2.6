@@ -94,7 +94,7 @@
     <section id="screen-game" class="screen">
       <header id="hud">
         <div class="hud-left">
-          <div class="hud-stat hud-hp"><span class="hud-icon">❤</span>
+          <div class="hud-stat hud-hp" id="hp-stat"><span class="hud-icon">❤</span>
             <div class="hud-bar"><div class="hud-bar-fill" id="hp-fill"></div><span id="hp-text">0/0</span></div></div>
           <div class="hud-stat hud-weapon" id="weapon-stat" title="战斗力"><span class="hud-icon">⚔</span><span id="weapon-text">0</span></div>
           <div class="hud-stat hud-shield"><span class="hud-icon">🛡</span><span id="shield-text">0</span></div>
@@ -150,6 +150,25 @@
           <button class="btn btn-primary" id="btn-shelter-yes">进入（-63瓶盖）</button>
           <button class="btn" id="btn-shelter-no">不进入</button>
         </div>
+      </div>
+    </section>
+
+    <section id="screen-backpack" class="screen overlay">
+      <div class="panel backpack-panel">
+        <h2 id="backpack-title">背包</h2>
+        <div id="backpack-meta" class="backpack-meta"></div>
+        <div id="backpack-slots" class="backpack-slots"></div>
+        <div id="backpack-actions" class="panel-buttons backpack-actions"></div>
+        <div class="panel-buttons"><button class="btn" id="btn-backpack-close">关闭背包</button></div>
+      </div>
+    </section>
+
+    <section id="screen-backpack-swap" class="screen overlay">
+      <div class="panel small">
+        <h2>更换背包</h2>
+        <p id="backpack-swap-text" class="backpack-swap-text"></p>
+        <div id="backpack-swap-list" class="backpack-swap-list"></div>
+        <div class="panel-buttons"><button class="btn btn-primary" id="btn-backpack-swap-confirm">确认保留并更换</button></div>
       </div>
     </section>
 
