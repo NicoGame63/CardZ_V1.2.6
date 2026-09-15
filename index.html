@@ -96,7 +96,7 @@
         <div class="hud-left">
           <div class="hud-stat hud-hp" id="hp-stat"><span class="hud-icon">❤</span>
             <div class="hud-bar"><div class="hud-bar-fill" id="hp-fill"></div><span id="hp-text">0/0</span></div></div>
-          <div class="hud-stat hud-weapon" id="weapon-stat" title="战斗力"><span class="hud-icon">⚔</span><span id="weapon-text">0</span></div>
+          <div class="hud-stat hud-weapon" id="weapon-stat" title="战斗力"><span class="hud-icon">⚔</span><span class="weapon-hud-copy"><span id="weapon-name">徒手</span><span class="weapon-power">战力 <b id="weapon-text">0</b></span></span></div>
           <div class="hud-stat hud-shield"><span class="hud-icon">🛡</span><span id="shield-text">0</span></div>
         </div>
         <div class="hud-right">
@@ -153,6 +153,19 @@
       </div>
     </section>
 
+    <section id="screen-location-confirm" class="screen overlay">
+      <div class="panel small location-confirm-panel">
+        <div class="location-kicker">可搜刮地点</div>
+        <h2 id="location-confirm-title">废墟地点</h2>
+        <p id="location-confirm-text" class="location-confirm-text">是否搜刮？</p>
+        <div class="location-risk-note">搜刮可能获得物资，也可能受伤或一无所获。</div>
+        <div class="panel-buttons">
+          <button class="btn btn-primary" id="btn-location-yes">搜刮</button>
+          <button class="btn" id="btn-location-no">直接通过</button>
+        </div>
+      </div>
+    </section>
+
     <section id="screen-backpack" class="screen overlay">
       <div class="panel backpack-panel">
         <h2 id="backpack-title">背包</h2>
@@ -167,8 +180,12 @@
       <div class="panel small">
         <h2>更换背包</h2>
         <p id="backpack-swap-text" class="backpack-swap-text"></p>
-        <div id="backpack-swap-list" class="backpack-swap-list"></div>
-        <div class="panel-buttons"><button class="btn btn-primary" id="btn-backpack-swap-confirm">确认保留并更换</button></div>
+        <div id="backpack-swap-list" class="backpack-swap-list hidden"></div>
+        <div class="panel-buttons">
+          <button class="btn btn-primary" id="btn-backpack-swap-yes">更换背包</button>
+          <button class="btn" id="btn-backpack-swap-no">保留当前背包</button>
+          <button class="btn btn-primary hidden" id="btn-backpack-swap-confirm">确认保留并更换</button>
+        </div>
       </div>
     </section>
 
