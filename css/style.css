@@ -261,3 +261,17 @@ html,body{margin:0;height:100%;font-family:"Georgia","Songti SC",serif;color:var
 .backpack-slot.empty b{color:var(--accent2);margin:5px 0}.backpack-slot.empty small{color:var(--ink-dim);line-height:1.45;text-align:center}
 .backpack-keep-item{align-items:center}.backpack-keep-img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 2px 3px rgba(0,0,0,.3))}
 @media(max-width:520px){.backpack-slots{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.backpack-slot{min-height:205px}.backpack-slot-art{height:116px}}
+
+/* ---------- 顶部武器名称 / 功能地点确认 ---------- */
+.hud-weapon{min-width:118px}
+.weapon-hud-copy{display:flex;flex-direction:column;align-items:flex-start;line-height:1.05;min-width:0}
+#weapon-name{max-width:86px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink-dim);font-size:11px;letter-spacing:.3px}
+#weapon-name.armed{color:#d7c7ad}
+.weapon-power{font-size:12px;color:var(--ink-dim);margin-top:3px}
+.weapon-power b{font-size:15px;color:var(--ink);font-weight:700}
+.location-confirm-panel{overflow:hidden;text-align:center}
+.location-confirm-panel::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,transparent,var(--accent2),transparent);opacity:.8}
+.location-kicker{display:inline-block;margin:0 auto 7px;padding:4px 9px;border:1px solid #6b543d;border-radius:999px;background:rgba(0,0,0,.22);color:var(--accent2);font-size:11px;letter-spacing:2px}
+.location-confirm-text{line-height:1.65;margin:8px 0 12px;color:var(--ink)}
+.location-risk-note{padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:rgba(0,0,0,.18);color:var(--ink-dim);font-size:12px;line-height:1.5}
+@media(max-width:520px){.hud-weapon{min-width:100px}#weapon-name{max-width:70px;font-size:10px}.weapon-power{font-size:10px}.weapon-power b{font-size:13px}}
