@@ -4,10 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CardZ — 废土卡牌地牢</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
-  <link rel="icon" href="assets/favicon-16.png" sizes="16x16" type="image/png" />
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <!-- 站点图标必须保持公开：浏览器在页面解析阶段就会请求，此时用户还没登录，
+       拿不到 Supabase 签名链接。把这 4 个文件从 assets/ 移到仓库里的 icons/ 即可，
+       它们只是图标，不属于需要保护的游戏内容。 -->
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="icons/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/auth.css" />
 
@@ -237,9 +240,12 @@
        而不是这几个 JS 文件本身。
        游戏真正的玩法代码（cards.js / game.js / ui.js 等）不会出现在 GitHub 仓库里，
        只有登录且授权通过后，才会从 Supabase 私有 Storage 生成临时签名链接下载执行。
+       素材（assets/）同理，由 assets.js 从私有桶 game-assets 拉取；
+       assets.js 必须排在 auth.js 前面，它会在引擎脚本执行前装好路径改写拦截。
   -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="js/supabase-config.js"></script>
+  <script src="js/assets.js"></script>
   <script src="js/loader.js"></script>
   <script src="js/auth.js"></script>
 </body>

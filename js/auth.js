@@ -41,6 +41,12 @@
   async function enterGame(user){
     showAuthScreen('正在加载游戏资源，请稍候…');
     try{
+      // 先拉素材：内部会装好路径拦截，引擎脚本执行时才能正确取到 assets/*
+      if(window.ASSET_LOADER){
+        await window.ASSET_LOADER.loadAssets(sb,(name,i,total)=>{
+          setStatus('正在加载素材 ('+i+'/'+total+')…');
+        });
+      }
       await window.ENGINE_LOADER.loadEngine(sb,(name,i,total)=>{
         setStatus('正在加载游戏资源 ('+i+'/'+total+')…');
       });
