@@ -11,10 +11,11 @@
   // ===== 可调参数 ==========================================================
   const ASSET_BUCKET   = 'game-assets'; // Supabase Storage 桶名
   const SIGN_SECONDS   = 60 * 60 * 8;   // 签名链接有效期（秒），默认 8 小时
-  const PRELOAD        = false;         // false = 只签名不下载，交给引擎自己去请求（本项目推荐）
-                                        //   textures.js 已经有自己的 preload() + 加载中回退程序化绘制 +
-                                        //   onReadyCb 重画机制，再套一层 blob 预下载只会重复缓存、多占内存。
-                                        // true  = 开局把素材全部下载成 blob，不怕链接过期、游戏中不卡顿，但吃内存。
+  const PRELOAD        = true;          // true = 素材全部下载成 blob 后才算「加载完」，
+                                        //   auth.js 里 enterGame() 会 await 这一步，
+                                        //   所以整个游戏也要等这一步做完才会进去。
+                                        // false = 只签名不下载，交给引擎自己按需请求（登录更快，但
+                                        //   游戏中途第一次用到某张图时可能有个短暂加载瞬间）。
   const CONCURRENCY    = 6;             // 预下载并发数
   const SIGN_BATCH     = 100;           // 每批签名的文件数（Supabase 单次上限 100 左右）
   // =========================================================================
