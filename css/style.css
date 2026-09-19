@@ -275,3 +275,13 @@ html,body{margin:0;height:100%;font-family:"Georgia","Songti SC",serif;color:var
 .location-confirm-text{line-height:1.65;margin:8px 0 12px;color:var(--ink)}
 .location-risk-note{padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:rgba(0,0,0,.18);color:var(--ink-dim);font-size:12px;line-height:1.5}
 @media(max-width:520px){.hud-weapon{min-width:82px;padding-left:5px;padding-right:5px;gap:4px}#weapon-name{max-width:56px;font-size:10px}.weapon-power{font-size:10px}.weapon-power b{font-size:13px}}
+
+
+/* 动感卡牌交互增强 */
+#board-wrap{will-change:filter,transform;perspective:900px}
+#board{transform-origin:center center}
+#board:active{filter:brightness(1.06) saturate(1.08)}
+.status-item,.hud-stat,.icon-btn{transition:transform .16s ease,filter .16s ease,box-shadow .16s ease}
+.status-item:hover,.hud-stat:hover{transform:translateY(-1px);filter:brightness(1.08)}
+@keyframes cardHudPop{0%{transform:scale(.96);opacity:.72}55%{transform:scale(1.04);opacity:1}100%{transform:scale(1);opacity:1}}
+.status-item.active{animation:cardHudPop .28s ease-out}
