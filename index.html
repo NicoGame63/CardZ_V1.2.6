@@ -43,6 +43,15 @@
       #screen-game #status-bar{max-height:22dvh}
       #screen-game #board-wrap{padding:2px 0}
     }
+
+    /* 追猎者 / 幸存者交互弹窗 */
+    .survivor-panel{max-width:520px;text-align:center;border:1px solid rgba(108,165,122,.35);box-shadow:0 18px 60px rgba(0,0,0,.5)}
+    .survivor-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;background:rgba(108,165,122,.12);border:1px solid rgba(108,165,122,.28);color:#b8d9c2;font-weight:700;margin-bottom:10px}
+    .survivor-status{display:flex;justify-content:center;gap:18px;margin:12px 0 16px;color:#d8c7ad}
+    .survivor-status b{color:#f0c77b}
+    .survivor-text{line-height:1.65;color:#d8c7ad;margin:10px auto 20px;max-width:430px}
+    .survivor-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:680px){.survivor-actions{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -156,21 +165,6 @@
       </div>
     </section>
 
-    <section id="screen-survivor" class="screen overlay">
-      <div class="panel small survivor-panel">
-        <div class="survivor-kicker">中立 NPC</div>
-        <h2>幸存者</h2>
-        <div id="survivor-hp" class="survivor-hp">20/32 HP</div>
-        <p id="survivor-dialog-text" class="survivor-dialog-text">幸存者发现了你。</p>
-        <div class="survivor-note">交流：30% 几率获得随机正面药水、道具或 5-8 瓶盖。<br>掠夺：立即进入战斗。</div>
-        <div class="panel-buttons vertical">
-          <button class="btn btn-primary" id="btn-survivor-talk">交流</button>
-          <button class="btn btn-danger" id="btn-survivor-rob">掠夺</button>
-          <button class="btn" id="btn-survivor-close">离开</button>
-        </div>
-      </div>
-    </section>
-
     <section id="screen-shelter-confirm" class="screen overlay">
       <div class="panel small">
         <h2>63号避难所</h2>
@@ -231,6 +225,21 @@
         <div class="panel-buttons">
           <button class="btn" id="btn-merchant-close">离开交易界面</button>
         </div>
+      </div>
+    </section>
+
+
+    <section id="screen-survivor" class="screen overlay">
+      <div class="panel small survivor-panel">
+        <div class="survivor-badge">🧑‍🦱 <span>幸存者</span></div>
+        <h2 id="survivor-title">幸存者</h2>
+        <div id="survivor-status" class="survivor-status"></div>
+        <p id="survivor-text" class="survivor-text">他警惕地看着你。</p>
+        <div class="survivor-actions">
+          <button class="btn btn-primary" id="btn-survivor-talk">交流</button>
+          <button class="btn" id="btn-survivor-rob">掠夺</button>
+        </div>
+        <div class="panel-buttons"><button class="btn" id="btn-survivor-close">离开</button></div>
       </div>
     </section>
 
